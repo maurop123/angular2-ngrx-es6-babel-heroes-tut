@@ -2,8 +2,14 @@
   "name": "bdm-tracker",
   "version": "0.0.1",
   "scripts": {
-    "start": "npm run lite",
-    "lite": "lite-server"
+    "prebuild:clean": "rimraf dist",
+    "prebuild": "npm run prebuild:clean",
+    "build:babel": "babel src --out-dir dist",
+    "build:browserify": "browserify src/public/main.js -o dist/public/main.js -t [ babelify --presets [ es2015 angular2 ] ]",
+    "build:html": "copyfiles -u 1 src/**/*.html dist",
+    "build": "npm run build:html && npm run build:browserify",
+    "prestart": "npm run build",
+    "start": "node dist/server.js"
   },
   "license": "ISC",
   "dependencies": {
@@ -17,17 +23,25 @@
     "@angular/router": "3.0.0-beta.1",
     "@angular/router-deprecated": "2.0.0-rc.2",
     "@angular/upgrade": "2.0.0-rc.4",
-
     "core-js": "^2.4.0",
     "reflect-metadata": "0.1.3",
     "rxjs": "5.0.0-beta.6",
     "zone.js": "0.6.12",
-
     "angular2-in-memory-web-api": "0.0.14",
     "bootstrap": "^3.3.6"
   },
   "devDependencies": {
+    "babel-cli": "^6.11.4",
+    "babel-core": "^6.13.2",
+    "babel-preset-angular2": "0.0.2",
+    "babel-preset-es2015": "^6.13.2",
+    "babelify": "^7.3.0",
+    "browserify": "^13.1.0",
     "concurrently": "^2.0.0",
-    "lite-server": "^2.2.0"
+    "copyfiles": "^1.0.0",
+    "express": "^4.14.0",
+    "lite-server": "^2.2.0",
+    "rimraf": "^2.5.4",
+    "watch": "^0.19.1"
   }
 }
