@@ -1,3 +1,4 @@
+tmp/
 jspm_packages/
 node_modules/
 *.swp
