@@ -1,3 +1,4 @@
 {
-  presets: ['es2015', 'angular2']
-  }
+  presets: ['es2015', 'angular2'],
+  plugins: ['babel-plugin-transform-html-import-to-string']
+}

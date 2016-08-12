@@ -1,5 +1,5 @@
 <h2>{{title}}</h2>
-<h2>{{hero.name}} details!</h2>
+<h2>{{hero.name}} Details!</h2>
 
 <div>
   <label>id: </label>
@@ -8,6 +8,5 @@
 
 <div>
   <label>name: </label>
-  <input value="{{hero.name}}" placeholder="name">
+  <input [(ngModel)]="hero.name" placeholder="name">
 </div>
-
