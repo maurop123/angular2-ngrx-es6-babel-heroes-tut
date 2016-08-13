@@ -11,6 +11,8 @@ import template from './heroes.template.html'
   styles: [styles],
 })
 export class HeroesComponent implements OnInit { 
+  error
+
   constructor(heroService, router) {
     this.heroService = heroService
     this.router = router
@@ -31,5 +33,23 @@ export class HeroesComponent implements OnInit {
   gotoDetail(hero) {
     let link = ['/detail', hero.id]
     this.router.navigate(link)
+  }
+
+  addHero() {
+    this.addingHero = true
+    this.selectedHero = null
+  }
+
+  close(savedHero) {
+    this.addingHero = false
+    if (savedHero) this.heroService.getHeroes().then(heroes => this.heroes = heroes)
+  }
+
+  deleteHero(hero, event) {
+    event.stopPropagation()
+    this.heroService.delete(hero).then(res => {
+      this.heroes = this.heroes.filter(h => h !== hero)
+      if (this.selectedHero === hero) this.selectedHero = null
+    }).catch(err => this.error = err)
   }
 }

@@ -1,4 +1,5 @@
 import {Component} from '@angular/core'
+import './rxjs-extensions'
 import template from './app.template.html'
 import styles from './app.styles.css'
 
