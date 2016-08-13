@@ -1,28 +1,12 @@
-import { Component, OnInit } from '@angular/core'
-import { HeroService } from './hero.service'
-import styles from './app.styles.css'
+import {Component} from '@angular/core'
 import template from './app.template.html'
+import styles from './app.styles.css'
 
 @Component({
   selector: 'my-app',
   template: template,
-  styles: [styles],
-  providers: [HeroService]
+  styles: [styles]
 })
-export class AppComponent implements OnInit { 
-  constructor(heroService) {
-    this.heroService = heroService
-  }
-
-  ngOnInit() {
-    this.heroService.getHeroes().then(heroes => this.heroes = heroes)
-  }
-
-  static get parameters() {
-    return [[HeroService]]
-  }
-  
-  onSelect(hero) {
-    this.selectedHero = hero
-  }
+export class AppComponent {
+  title = 'Heroes Tour'
 }
