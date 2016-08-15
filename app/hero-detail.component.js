@@ -39,11 +39,18 @@ export class HeroDetailComponent implements OnInit {
     })
   }
 
+  // save() {
+  //   this.heroService.save(this.hero).then(hero => {
+  //     this.hero = hero
+  //     this.goBack(hero)
+  //   }).catch(err => this.error = err)
+  // }
+
   save() {
-    this.heroService.save(this.hero).then(hero => {
+    this.heroService.saveHero(this.hero).subscribe(hero => {
       this.hero = hero
       this.goBack(hero)
-    }).catch(err => this.error = err)
+    })
   }
 
   goBack(savedHero=null) {

@@ -19,7 +19,10 @@ export class HeroesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.heroService.getHeroes().then(heroes => this.heroes = heroes)
+    // this.heroService.getHeroes().then(heroes => this.heroes = heroes)
+    this.heroService.getHeros().subscribe(heroes => {
+      this.heroes = heroes
+    })
   }
 
   static get parameters() {

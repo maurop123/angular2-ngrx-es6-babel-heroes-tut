@@ -1,23 +1,27 @@
 import { Injectable } from '@angular/core'
 import { Http } from '@angular/http'
 import 'rxjs/add/operator/toPromise'
-
-import { HEROES } from './mock-heroes'
+import { Store } from '@ngrx/store'
 
 @Injectable()
 export class HeroService {
   heroesUrl = 'app/heroes'
     
-  constructor(http) {
+  constructor(http, store) {
     this.http = http
+    this.store = store
   }
 
   static get parameters() {
-    return [[Http]]
+    return [[Http], [Store]]
   }
 
   getHero(id) {
     return this.getHeroes().then(heroes => heroes.find(hero => hero.id === id))
+  }
+
+  getHeros() {
+    return this.store.select('heroes')
   }
 
   getHeroes() {
@@ -37,6 +41,16 @@ export class HeroService {
 
   save(hero) {
     return (hero.id) ? this.put(hero) : this.post(hero)
+  }
+
+  saveHero(hero) {
+    this.store.dispatch({
+      type:'ADD_HERO',
+      payload: hero
+    })
+
+    return this.store.select('heroes')
+    .flatMap(heroes => heroes.filter(_hero => _hero.name == hero.name))
   }
 
   post(hero) {
